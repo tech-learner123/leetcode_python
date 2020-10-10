@@ -1,7 +1,10 @@
+from collections import defaultdict
+
+
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
-
-        banned_words = set(banned)
+        """
+         banned_words = set(banned)
         ans = ""
         max_count = 0
         word_count = defaultdict(int)
@@ -25,4 +28,25 @@ class Solution:
                 # reset the buffer for the next word
                 word_buffer = []
 
+        return ans
+
+        """
+        # hashmap, need to pay attention to the punctuation
+        frequency = defaultdict(int)
+        banned = set(banned)
+        word = ''
+        max_count = 0
+        ans = ''
+        for index, l in enumerate(paragraph):
+            if l.isalpha():
+                word += l.lower()
+                if index != len(paragraph) - 1:
+                    continue
+            if len(word) > 0:
+                if word not in banned:
+                    frequency[word] += 1
+                if frequency[word] > max_count:
+                    max_count = frequency[word]
+                    ans = word
+                word = ''
         return ans
