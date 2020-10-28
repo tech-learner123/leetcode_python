@@ -8,6 +8,7 @@ class Solution(object):
         :rtype: int
         """
         total_sum, level_sum = 0, 0
+        # do not re-initial the level sum to allow cumulative summzation.
         while len(nestedList):
             next_level_list = []
             for x in nestedList:
