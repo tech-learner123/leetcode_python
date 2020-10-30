@@ -1,6 +1,8 @@
 from collections import defaultdict, deque
 
 
+# topological sort
+
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         # corner cases, no prerequisites
@@ -13,8 +15,8 @@ class Solution:
         in_degree = {}
         for course in prerequisites:
             course, prereq = course[0], course[1]
-            neigh[course].append(prereq)
-            in_degree[prereq] = in_degree.get(prereq, 0) + 1
+            neigh[prereq].append(course)
+            in_degree[course] = in_degree.get(course, 0) + 1
 
         zero_in_degree_course = deque([i for i in range(numCourses) if i not in in_degree])
         sort = []
@@ -28,4 +30,4 @@ class Solution:
                     if in_degree[nei] == 0:
                         zero_in_degree_course.append(nei)
 
-        return sort[::-1] if len(sort) == numCourses else []
+        return sort if len(sort) == numCourses else []
