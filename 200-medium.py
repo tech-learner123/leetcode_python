@@ -35,3 +35,27 @@ class Solution:
                     helper(i, j)
                     count += 1
         return count
+"""
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        
+        def helper(i, j):
+            if 0 <= i < m and 0 <= j < n and grid[i][j] == "1":
+                grid[i][j] = '*'
+                helper(i + 1, j)
+                helper(i - 1, j)
+                helper(i, j+1)
+                helper(i, j-1)
+    
+        
+        if not grid:
+            return 0
+        m, n = len(grid), len(grid[0])
+        count = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "1":
+                    helper(i, j)
+                    count += 1
+        return count
+"""
