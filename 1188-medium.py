@@ -29,3 +29,36 @@ class BoundedBlockingQueue(object):
 
     def size(self) -> int:
         return len(self.queue)
+
+
+class BoundedBlockingQueue(object):
+
+    def __init__(self, capacity: int):
+        self.en, self.de = Lock(), Lock()
+        self.q = deque()
+        self.capacity = capacity
+        # acquire a lock, blocking or non-blocking
+        self.de.acquire()
+
+    def enqueue(self, element: int) -> None:
+        # locked
+        self.en.acquire()
+        self.q.append(element)
+        if len(self.q) < self.capacity:
+            # unlocked
+            self.en.release()
+        if self.de.locked():
+            self.de.release()
+
+    def dequeue(self) -> int:
+        # locked the de
+        self.de.acquire()
+        val = self.q.popleft()
+        if len(self.q):
+            self.de.release()
+        if val and self.en.locked():
+            self.en.release()
+        return val
+
+    def size(self) -> int:
+        return len(self.q)

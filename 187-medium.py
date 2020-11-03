@@ -1,39 +1,31 @@
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
-        # Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.
-        """
-         # Brute force approach: Linear-time slice using substring + hashset
-        seen = set()
-        res = set()
-        for i in range(len(s) - 10 + 1):
-            new = s[i: i+10]
-            if new in seen:
-                res.add(new)
-            else:
-                seen.add(new)
-        return res
-        """
-        total_length = 10
-        # rolling hash parameters: base is 4
+        L, n = 10, len(s)
+        if n <= L:
+            return []
+
+        # rolling hash parameters: base a
         a = 4
-        a_total_length = pow(a, total_length)
+        aL = pow(a, L)
 
         # convert string to array of integers
         to_int = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
-        nums = [to_int.get(l) for l in s]
+        nums = [to_int.get(s[i]) for i in range(n)]
 
-        seen, output = set(), set()
         h = 0
-        for start in range(len(s) - 10 + 1):
+        seen, output = set(), set()
+        # iterate over all sequences of length L
+        for start in range(n - L + 1):
+            # compute hash of the current sequence in O(1) time
             if start != 0:
-                # adding the new digit in and remove the previous digit.
-                h = h * a - nums[start - 1] * a_total_length + nums[start + total_length - 1]
+                h = h * a - nums[start - 1] * aL + nums[start + L - 1]
+            # compute hash of the first sequence in O(L) time
             else:
-                for i in range(total_length):
+                for i in range(L):
+                    #  this is equal to sum(h) = cipower(4, )
                     h = h * a + nums[i]
-            # update the output and hashset of seen sequence:
+            # update output and hashset of seen sequences
             if h in seen:
-                output.add(s[start: start + total_length])
-            else:
-                seen.add(h)
+                output.add(s[start:start + L])
+            seen.add(h)
         return output
