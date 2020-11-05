@@ -20,12 +20,13 @@ class Solution:
             mid = (start + end) // 2
 
             # g(m): a statement [1,2,3]  2
+            # find the first element that is greater or equal than the target.
             if self.prefix_sums[mid] >= target:
                 end = mid
             else:
                 start = mid + 1
         # Second, looking for the first element that satisfy the g(m) return j
-        return end
+        return start
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
