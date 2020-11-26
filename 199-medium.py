@@ -5,6 +5,30 @@
 #         self.left = left
 #         self.right = right
 from collections import deque
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+from collections import deque
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        # bfs
+        if not root:
+            return []
+        queue = deque([(root, 1)])
+        ans = {0: root.val}
+        while queue:
+            node, depth = queue.popleft()
+            if node.left:
+                ans[depth] = node.left.val
+                queue.append((node.left, depth + 1))
+            if node.right:
+                ans[depth] = node.right.val
+                queue.append((node.right, depth + 1))
+        return ans.values()
 
 
 class Solution:
