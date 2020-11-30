@@ -1,3 +1,6 @@
+"""
+Expand around the center
+"""
 class Solution:
     def longestPalindrome(self, s: str) -> str:
 
@@ -5,6 +8,7 @@ class Solution:
             while l >= 0 and r < len(s) and s[l] == s[r]:
                 l -= 1
                 r += 1
+            # going one step back.
             return s[l + 1:r]
 
         res = ""

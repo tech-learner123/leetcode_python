@@ -1,3 +1,10 @@
+"""
+The problem is known as Dutch National Flag Problem and first was proposed by Edsger W. Dijkstra.
+The idea is to attribute a color to each number and then to arrange them following the order of
+colors on the Dutch flag.
+"""
+
+
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
